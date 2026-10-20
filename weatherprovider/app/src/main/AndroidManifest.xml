@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="false"
+        android:label="Weather Data"
+        android:icon="@android:drawable/ic_dialog_info">
+
+        <!-- The launcher's weather widget reads from THIS authority as its CVTE fallback. -->
+        <provider
+            android:name=".WeatherProvider"
+            android:authorities="com.cvte.tv.weather.export.WeatherDataContentProvider"
+            android:exported="true" />
+
+        <!-- Launched once after install to clear the 'stopped' state and warm the cache. -->
+        <activity
+            android:name=".InitActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <!-- Refresh the cache on boot so the widget has data quickly. -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

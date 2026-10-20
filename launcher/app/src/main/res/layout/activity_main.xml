@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:clipChildren="true">
+
+    <!-- The vertical "page": top bar + hero + dock + grid. Scrolled by translationY. -->
+    <LinearLayout
+        android:id="@+id/page"
+        android:layout_width="match_parent"
+        android:layout_height="1170dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <!-- TOP BAR -->
+        <FrameLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="26dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_variable"
+                    android:textFontWeight="300"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="25sp"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/clock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_variable"
+                    android:textFontWeight="200"
+                    android:textColor="#FFFFFFFF"
+                    android:letterSpacing="0.01"
+                    android:textSize="56sp"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/outfit_variable"
+                    android:textFontWeight="300"
+                    android:textColor="#99FFFFFF"
+                    android:textSize="18sp"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pillRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_marginEnd="48dp"
+                android:layout_marginTop="34dp"
+                android:orientation="horizontal" />
+        </FrameLayout>
+
+        <!-- HERO (ambient glow + focused dock app name) -->
+        <FrameLayout
+            android:id="@+id/hero"
+            android:layout_width="match_parent"
+            android:layout_height="330dp">
+
+            <View
+                android:id="@+id/glow"
+                android:layout_width="760dp"
+                android:layout_height="320dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="-120dp"
+                android:alpha="0" />
+
+            <TextView
+                android:id="@+id/heroName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:layout_marginStart="56dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/outfit_variable"
+                android:textFontWeight="300"
+                android:textColor="#FFFFFFFF"
+                android:textSize="44sp"
+                android:text="" />
+        </FrameLayout>
+
+        <!-- DOCK -->
+        <FrameLayout
+            android:id="@+id/dockArea"
+            android:layout_width="match_parent"
+            android:layout_height="190dp">
+
+            <LinearLayout
+                android:id="@+id/dockRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/dock_band_bg"
+                android:orientation="horizontal"
+                android:padding="16dp" />
+        </FrameLayout>
+
+        <!-- GRID -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="490dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:descendantFocusability="blocksDescendants"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
+    </LinearLayout>
+
+    <!-- Single glass highlight that springs tile-to-tile (drawn over everything) -->
+    <com.cleanhome.tv.HighlightView
+        android:id="@+id/highlight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Inputs dropdown (glass), positioned & populated in code -->
+    <LinearLayout
+        android:id="@+id/inputDropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dropdown_bg"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:visibility="gone" />
+</FrameLayout>

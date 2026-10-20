@@ -1,0 +1,30 @@
+# Android / Gradle build outputs
+build/
+*/build/
+.gradle/
+*/.gradle/
+local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Signing / secrets — never commit
+*.keystore
+*.jks
+keystore.properties
+*.pem
+
+# Build artifacts / binaries you shouldn't track
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# OS cruft
+.DS_Store
+Thumbs.db

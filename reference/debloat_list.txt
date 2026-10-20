@@ -1,0 +1,15 @@
+com.cvte.industries
+com.cvte.tv.ucservice
+com.zeasn.services.general
+com.google.android.gms.location.history
+com.google.android.partnersetup
+com.metax.browser.cvte
+com.cvte.tv.steward
+com.cvte.tv.tools
+com.stark.bytelloremoteserver
+com.cvte.tv.systemupgrade
+com.cvte.dssshare.dlna
+com.hisilicon.miracast
+com.maxhub.screenshare.server.tv
+com.screenshare.platform
+com.hisilicon.higallery

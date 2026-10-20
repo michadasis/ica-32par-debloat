@@ -1,0 +1,25 @@
+
+# --- CleanHome ad/telemetry block (CVTE/Zeasn WhaleAds). Remove this section to restore. ---
+127.0.0.1 ssp.zeasn.tv
+127.0.0.1 recommend.zeasn.tv
+127.0.0.1 ping.zeasn.tv
+127.0.0.1 log.saas.zeasn.tv
+127.0.0.1 saas.zeasn.tv
+127.0.0.1 cache.zeasn.tv
+127.0.0.1 deviceportal.zeasn.tv
+127.0.0.1 whalelive.zeasn.tv
+127.0.0.1 adserver.srafcloud.com
+127.0.0.1 on-euads-o.api.leiniao.com
+127.0.0.1 api.leiniao.com
+::1 ssp.zeasn.tv
+::1 recommend.zeasn.tv
+::1 ping.zeasn.tv
+::1 log.saas.zeasn.tv
+::1 saas.zeasn.tv
+::1 cache.zeasn.tv
+::1 deviceportal.zeasn.tv
+::1 whalelive.zeasn.tv
+::1 adserver.srafcloud.com
+::1 on-euads-o.api.leiniao.com
+::1 api.leiniao.com
+# --- end CleanHome block ---

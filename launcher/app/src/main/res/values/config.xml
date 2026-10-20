@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  EDIT HERE to change the dock. List exactly the packages you want in the
+  bottom dock, in left-to-right order. Anything launchable that is NOT in this
+  list appears in the grid below. To change the dock later you can also just
+  edit this file and rebuild, or push a new value - see README.
+-->
+<resources>
+    <string-array name="dock_packages">
+        <item>com.google.android.youtube.tv</item>
+        <item>com.netflix.mediaclient</item>
+        <item>com.disney.disneyplus</item>
+        <item>com.wbd.hbomax</item>
+    </string-array>
+
+    <!-- Packages never shown anywhere (noise / dev tools / self handled in code) -->
+    <string-array name="hidden_packages">
+        <item>com.android.traceur</item>
+        <item>com.android.tv.settings</item>
+        <item>com.android.inputmethod.latin</item>
+    </string-array>
+
+    <!-- Brand accent fallback colors (used if banner color sampling is unclear) -->
+    <color name="accent_default">#FF4D8CFF</color>
+
+    <!-- Number of grid columns -->
+    <integer name="grid_columns">4</integer>
+</resources>

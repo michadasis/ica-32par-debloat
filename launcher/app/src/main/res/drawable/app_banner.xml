@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <path android:pathData="M0,0 h320 v180 h-320 z">
+        <aapt:attr xmlns:aapt="http://schemas.android.com/aapt" name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="320" android:endY="180"
+                android:startColor="#FF1B2A4A"
+                android:endColor="#FF05070C" />
+        </aapt:attr>
+    </path>
+    <!-- house glyph -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M74,64 L104,90 L96,90 L96,118 L82,118 L82,100 L66,100 L66,118 L52,118 L52,90 L44,90 Z" />
+    <!-- wordmark bars (suggesting 'Clean Home') -->
+    <path android:fillColor="#FFFFFF" android:pathData="M140,78 h120 v10 h-120 z" />
+    <path android:fillColor="#99FFFFFF" android:pathData="M140,98 h84 v8 h-84 z" />
+</vector>
