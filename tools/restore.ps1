@@ -84,6 +84,8 @@ Write-Host "Removing D-pad navigation app + restoring mouse for Netflix..." -For
 & $adb -s $serial uninstall com.cleanhome.dpadnav *> $null
 # remove the boot auto-enable service
 & $adb -s $serial shell "mount -o remount,rw /vendor; rm -f /vendor/etc/init/dpadnav.rc /vendor/bin/dpadnav_boot.sh" *> $null
+# remove the HiRMS whitelist overlay (lets HiRMS manage this app normally again)
+& $adb -s $serial shell "mount -o remount,rw /; rm -rf /system/product/overlay/rroHirms" *> $null
 $mouse = Join-Path $PSScriptRoot "..\backup\saturn\mouse_control_ORIGINAL.json"
 if (-not (Test-Path $mouse)) { $mouse = Join-Path $PSScriptRoot "..\reference\mouse_control_ORIGINAL.json" }
 if (Test-Path $mouse) {

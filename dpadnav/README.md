@@ -31,9 +31,15 @@ Only active while Netflix is foreground; everywhere else it's idle and passes ke
 
 ## How it stays alive / persists
 
-- **Foreground keep‑alive service** (`KeepAliveService`): this TV's vendor RAM manager
-  (HiRMS) force‑stops normal background apps; a foreground service keeps the process at a
-  priority HiRMS leaves alone. (Cost: a silent minimal notification.)
+- **HiRMS whitelist overlay** (`hirms_rro/`): this TV's vendor RAM manager (HiRMS,
+  `com.hisilicon.rmservice`) force‑stops background apps — notably ~90 s after every
+  boot — matching a **hardcoded whitelist by process name**, ignoring oom priority (so a
+  foreground service does *not* save you). A static RRO overlays HiRMS's
+  `str_app_whitelist` array to add `com.cleanhome.dpadnav` to it; HiRMS keeps working
+  normally for everything else. See `hirms_rro/README.md`. **This is what actually keeps
+  the app alive after boot** — the keep‑alive service below is a secondary belt‑and‑braces.
+- **Foreground keep‑alive service** (`KeepAliveService`): keeps the process at a higher
+  priority for ordinary (memory‑pressure) reclaim. (Cost: a silent minimal notification.)
 - **Boot receiver** (`BootReceiver`): the firmware drops adb‑enabled accessibility services
   on reboot, so on `BOOT_COMPLETED` it re‑adds itself to `enabled_accessibility_services`.
   Needs `WRITE_SECURE_SETTINGS`, granted once over adb (below).
@@ -78,6 +84,9 @@ list, and restores `mouse_control.json`), or manually:
 ```bash
 adb -s 192.168.1.53:5555 shell "settings put secure enabled_accessibility_services 'com.hisilicon.rmservice/.HiRMService'"
 adb -s 192.168.1.53:5555 uninstall com.cleanhome.dpadnav
+# remove the boot service and the HiRMS whitelist overlay
+adb -s 192.168.1.53:5555 shell "mount -o remount,rw /vendor; rm -f /vendor/etc/init/dpadnav.rc /vendor/bin/dpadnav_boot.sh"
+adb -s 192.168.1.53:5555 shell "mount -o remount,rw /; rm -rf /system/product/overlay/rroHirms"
 # restore reference/mouse_control_ORIGINAL.json to /vendor/menu_config_xml/mouse_control.json
 ```
 

@@ -68,6 +68,8 @@ echo "Removing D-pad navigation app + restoring mouse for Netflix..."
 "$ADB" -s "$SERIAL" uninstall com.cleanhome.dpadnav >/dev/null 2>&1
 # remove the boot auto-enable service
 "$ADB" -s "$SERIAL" shell "mount -o remount,rw /vendor; rm -f /vendor/etc/init/dpadnav.rc /vendor/bin/dpadnav_boot.sh" >/dev/null 2>&1
+# remove the HiRMS whitelist overlay (lets HiRMS manage this app normally again)
+"$ADB" -s "$SERIAL" shell "mount -o remount,rw /; rm -rf /system/product/overlay/rroHirms" >/dev/null 2>&1
 MOUSE="$HERE/backup/saturn/mouse_control_ORIGINAL.json"
 [ -f "$MOUSE" ] || MOUSE="$HERE/reference/mouse_control_ORIGINAL.json"
 if [ -f "$MOUSE" ]; then

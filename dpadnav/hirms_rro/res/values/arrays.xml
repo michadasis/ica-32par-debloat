@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="str_app_whitelist">
+        <item>com.android.bluetooth</item>
+        <item>com.hisilicon.miracast</item>
+        <item>com.iflytek.xiri</item>
+        <item>com.yuyin.view</item>
+        <item>com.cvte.tv.setting</item>
+        <item>com.cvte.tv.launcher.fall</item>
+        <item>com.cvte.tv.launcher.space</item>
+        <item>com.cvte.tv.launcher.saturn</item>
+        <item>com.cvte.tv.launcher.mosaix</item>
+        <item>com.cvte.tv.api.impl</item>
+        <item>com.cvte.tv.systemupgrade</item>
+        <item>com.cvte.tvservice</item>
+        <item>com.cvte.tv.provision</item>
+        <item>com.cvte.tv.globalui</item>
+        <item>com.android.systemui</item>
+        <item>com.dangbei.mimir.lightos.launcher</item>
+        <item>com.cvte.industries</item>
+        <item>com.google.android.gms.persistent</item>
+        <item>com.stark.bytelloremoteserver</item>
+        <item>android.ext.services</item>
+        <item>com.cvte.tv.speech</item>
+        <item>com.cvte.tv.focushelper</item>
+        <item>com.google.android.gms</item>
+        <item>com.maxhub.screenshare.server.tv</item>
+        <item>com.screenshare.platform</item>
+        <item>com.google.android.katniss</item>
+        <item>com.google.android.katniss:search</item>
+        <item>com.google.android.katniss:interactor</item>
+        <item>com.cvte.ad.spider</item>
+        <item>com.cvte.ad.spider:schedule</item>
+        <item>com.cvte.advertise</item>
+        <item>com.zeasn.whale.saas</item>
+        <item>cn.zeasn.overseas.tv.store.rca.custom</item>
+        <item>com.cleanhome.dpadnav</item>
+    </string-array>
+</resources>
