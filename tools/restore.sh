@@ -66,6 +66,8 @@ fi
 echo "Removing D-pad navigation app + restoring mouse for Netflix..."
 "$ADB" -s "$SERIAL" shell "settings put secure enabled_accessibility_services 'com.hisilicon.rmservice/.HiRMService'" >/dev/null 2>&1
 "$ADB" -s "$SERIAL" uninstall com.cleanhome.dpadnav >/dev/null 2>&1
+# remove the boot auto-enable service
+"$ADB" -s "$SERIAL" shell "mount -o remount,rw /vendor; rm -f /vendor/etc/init/dpadnav.rc /vendor/bin/dpadnav_boot.sh" >/dev/null 2>&1
 MOUSE="$HERE/backup/saturn/mouse_control_ORIGINAL.json"
 [ -f "$MOUSE" ] || MOUSE="$HERE/reference/mouse_control_ORIGINAL.json"
 if [ -f "$MOUSE" ]; then

@@ -82,6 +82,8 @@ if (Test-Path $logo) {
 Write-Host "Removing D-pad navigation app + restoring mouse for Netflix..." -ForegroundColor Cyan
 & $adb -s $serial shell "settings put secure enabled_accessibility_services 'com.hisilicon.rmservice/.HiRMService'" *> $null
 & $adb -s $serial uninstall com.cleanhome.dpadnav *> $null
+# remove the boot auto-enable service
+& $adb -s $serial shell "mount -o remount,rw /vendor; rm -f /vendor/etc/init/dpadnav.rc /vendor/bin/dpadnav_boot.sh" *> $null
 $mouse = Join-Path $PSScriptRoot "..\backup\saturn\mouse_control_ORIGINAL.json"
 if (-not (Test-Path $mouse)) { $mouse = Join-Path $PSScriptRoot "..\reference\mouse_control_ORIGINAL.json" }
 if (Test-Path $mouse) {

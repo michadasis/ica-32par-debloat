@@ -1,0 +1,9 @@
+service dpadnav_boot /system/bin/sh /vendor/bin/dpadnav_boot.sh
+    user root
+    group root
+    seclabel u:r:su:s0
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1
+    start dpadnav_boot

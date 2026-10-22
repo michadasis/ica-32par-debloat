@@ -36,7 +36,12 @@ Only active while Netflix is foreground; everywhere else it's idle and passes ke
   priority HiRMS leaves alone. (Cost: a silent minimal notification.)
 - **Boot receiver** (`BootReceiver`): the firmware drops adb‑enabled accessibility services
   on reboot, so on `BOOT_COMPLETED` it re‑adds itself to `enabled_accessibility_services`.
-  This needs `WRITE_SECURE_SETTINGS`, granted once over adb (below).
+  Needs `WRITE_SECURE_SETTINGS`, granted once over adb (below).
+- **Root boot service** (`bootfix/`): a **power‑off** (cold boot) also leaves the app
+  *force‑stopped*, and stopped apps never receive `BOOT_COMPLETED` — so the receiver alone
+  isn't enough. A tiny root init service (`/vendor/etc/init/dpadnav.rc` →
+  `/vendor/bin/dpadnav_boot.sh`) re‑enables the service on `sys.boot_completed` regardless of
+  app state. (SELinux on this build is Permissive, so the script can run `settings`.)
 
 ## Build & install
 
@@ -48,10 +53,17 @@ adb -s 192.168.1.53:5555 install -r -g app/build/outputs/apk/debug/app-debug.apk
 # grant the permission that lets it re-enable itself on boot
 adb -s 192.168.1.53:5555 shell pm grant com.cleanhome.dpadnav android.permission.WRITE_SECURE_SETTINGS
 
-# enable the accessibility service (persists across reboots via BootReceiver)
+# enable the accessibility service
 adb -s 192.168.1.53:5555 shell "settings put secure enabled_accessibility_services \
   'com.hisilicon.rmservice/.HiRMService:com.cleanhome.dpadnav/com.cleanhome.dpadnav.DpadService'; \
   settings put secure accessibility_enabled 1"
+
+# install the root boot service so it survives power-offs (cold boots)
+adb -s 192.168.1.53:5555 shell "mount -o remount,rw /vendor"
+adb -s 192.168.1.53:5555 push bootfix/dpadnav_boot.sh /vendor/bin/dpadnav_boot.sh
+adb -s 192.168.1.53:5555 push bootfix/dpadnav.rc /vendor/etc/init/dpadnav.rc
+adb -s 192.168.1.53:5555 shell "chmod 755 /vendor/bin/dpadnav_boot.sh; chmod 644 /vendor/etc/init/dpadnav.rc; \
+  restorecon /vendor/bin/dpadnav_boot.sh /vendor/etc/init/dpadnav.rc"
 ```
 
 It also needs the virtual mouse **off** for Netflix so the D‑pad reaches the service —

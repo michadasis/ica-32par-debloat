@@ -160,9 +160,10 @@ grid (Skip Intro, play/pause, ±10, progress‑bar scrub, next episode, audio/su
 and an on‑screen‑keyboard for **search** (types by setting the field text directly). It shows a
 Netflix‑style white focus ring and is idle outside Netflix.
 
-- It survives reboots on its own: a `BootReceiver` re‑enables the service on boot (needs
-  `WRITE_SECURE_SETTINGS`, granted once over adb), and a foreground keep‑alive service stops
-  the vendor RAM manager (HiRMS) from killing it.
+- It survives reboots **and power‑offs** on its own: a `BootReceiver` re‑enables it on soft
+  reboot, and a root init boot service (`dpadnav/bootfix/`) re‑enables it after cold boots
+  (where the app is left force‑stopped); a foreground keep‑alive service stops the vendor RAM
+  manager (HiRMS) from killing it.
 - Needs the virtual mouse **off** for Netflix (`com.netflix.mediaclient` blacklisted in
   `/vendor/menu_config_xml/mouse_control.json`; original at `reference/mouse_control_ORIGINAL.json`).
 - Build/install/remove and the full key map are in **`dpadnav/README.md`**.
