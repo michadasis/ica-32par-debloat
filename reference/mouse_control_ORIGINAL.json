@@ -1,0 +1,29 @@
+{
+    "mMousePackageWhiteList": [
+        "com.android.browser"
+    ],
+    "mMousePackageBlackList": [
+        "com.stark.store",
+        "com.cvte.tv.setting",
+        "com.cvte.settings",
+        "com.cvte.fac.menu",
+        "com.cvte.tv.media",
+        "com.cvte.tv.api.impl",
+        "com.cvte.tv.steward",
+        "com.cvte.tv.pictorial",
+        "com.maxhub.screenshare.server.tv",
+        "com.mediatek.androidbox",
+        "com.cvte.tv.provision",
+        "com.seraphic.openinet.pre",
+        "com.seraphic.openinet.cvte"
+    ],
+   "mFirstShowMousePackageList": [
+        "com.netflix.mediaclient"
+    ],
+    "mMouseSwitchTip": "true",
+    "mEnableCHPageTurn": "true",
+    "mEnableSlippingUI": "true",
+    "mSlippingUIPriority": "false",
+    "mSlippingUIMoveStep": "20",
+    "mShowPhyAndVirMouseTogether": "true"
+}

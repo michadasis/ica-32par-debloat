@@ -150,8 +150,27 @@ resigned `/vendor` base app). Current tabs: Source, Apps, Home, App Store,
 - `tools/restore.ps1` / `.sh` restore the **original** skin (all tabs back).
 - Caveat: a firmware OTA could overwrite the skin — but the OTA updater was removed, so this is unlikely.
 
+## Netflix D‑pad navigation (`dpadnav/`)
+
+The TV ships the **phone** Netflix app (the Android‑TV build is blocked — the set isn't
+Widevine‑L1 certified, error ‑13 / `KEYBOX NOT LOADED`), and the firmware drives that touch
+UI with a clunky **virtual mouse** on the D‑pad. `dpadnav/` is a small **AccessibilityService**
+that replaces the mouse with real D‑pad focus navigation for Netflix — browse, the full player
+grid (Skip Intro, play/pause, ±10, progress‑bar scrub, next episode, audio/subtitle submenu),
+and an on‑screen‑keyboard for **search** (types by setting the field text directly). It shows a
+Netflix‑style white focus ring and is idle outside Netflix.
+
+- It survives reboots on its own: a `BootReceiver` re‑enables the service on boot (needs
+  `WRITE_SECURE_SETTINGS`, granted once over adb), and a foreground keep‑alive service stops
+  the vendor RAM manager (HiRMS) from killing it.
+- Needs the virtual mouse **off** for Netflix (`com.netflix.mediaclient` blacklisted in
+  `/vendor/menu_config_xml/mouse_control.json`; original at `reference/mouse_control_ORIGINAL.json`).
+- Build/install/remove and the full key map are in **`dpadnav/README.md`**.
+- `tools/restore.*` uninstall it and restore the mouse for Netflix.
+
 ## Known limitations / not 100% guaranteed
 
+- Netflix stays SD (phone app / Widevine L3); `dpadnav` only changes navigation, not DRM.
 - Launcher cannot be the real Home (firmware lock — see above).
 - Grid shows up to ~3 rows cleanly; it does not internally scroll for very large app
   counts (fine for the current ~10 apps).
@@ -173,8 +192,9 @@ Developer options, or with a USB cable + `adb tcpip 5555`.
 README.md          this file
 docs/              TV_SYSTEM_REFERENCE.md (hardware + apps), TROUBLESHOOTING.md
 tools/             restore.ps1/.sh, build_and_install.ps1, adblock.ps1, close_adb.ps1
-reference/         debloat_list.txt (the 15 removed pkgs), hosts_adblock.txt
+reference/         debloat_list.txt (the 15 removed pkgs), hosts_adblock.txt, mouse_control_ORIGINAL.json
 launcher/          the Clean Home Android TV launcher (Gradle source)
 weatherprovider/   the weather ContentProvider app (Gradle source)
+dpadnav/           Netflix D-pad navigation accessibility service (Gradle source)
 ```
 (Device backups of the stock APKs aren't in the repo — see "About this repo" above.)

@@ -78,4 +78,18 @@ if (Test-Path $logo) {
 # 4. Remove the weather provider app (returns the widget to its stock behavior)
 & $adb -s $serial shell pm uninstall com.cleanhome.weather *> $null
 
+# 5. Remove the D-pad Netflix navigation app + restore the virtual mouse for Netflix
+Write-Host "Removing D-pad navigation app + restoring mouse for Netflix..." -ForegroundColor Cyan
+& $adb -s $serial shell "settings put secure enabled_accessibility_services 'com.hisilicon.rmservice/.HiRMService'" *> $null
+& $adb -s $serial uninstall com.cleanhome.dpadnav *> $null
+$mouse = Join-Path $PSScriptRoot "..\backup\saturn\mouse_control_ORIGINAL.json"
+if (-not (Test-Path $mouse)) { $mouse = Join-Path $PSScriptRoot "..\reference\mouse_control_ORIGINAL.json" }
+if (Test-Path $mouse) {
+    $mdst = "/vendor/menu_config_xml/mouse_control.json"
+    & $adb -s $serial shell "mount -o remount,rw /vendor" *> $null
+    & $adb -s $serial push $mouse /data/local/tmp/mc_restore.json | Out-Null
+    & $adb -s $serial shell "cp /data/local/tmp/mc_restore.json $mdst && chmod 644 $mdst; restorecon $mdst" *> $null
+    Write-Host "  mouse restored for Netflix."
+}
+
 Write-Host "`nDone. Reboot:  .\adb.exe -s $serial reboot" -ForegroundColor Yellow

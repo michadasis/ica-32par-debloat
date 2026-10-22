@@ -61,4 +61,18 @@ fi
 
 # Remove the weather provider app (returns the widget to stock behavior)
 "$ADB" -s "$SERIAL" shell pm uninstall com.cleanhome.weather >/dev/null 2>&1
+
+# Remove the D-pad Netflix navigation app + restore the virtual mouse for Netflix
+echo "Removing D-pad navigation app + restoring mouse for Netflix..."
+"$ADB" -s "$SERIAL" shell "settings put secure enabled_accessibility_services 'com.hisilicon.rmservice/.HiRMService'" >/dev/null 2>&1
+"$ADB" -s "$SERIAL" uninstall com.cleanhome.dpadnav >/dev/null 2>&1
+MOUSE="$HERE/backup/saturn/mouse_control_ORIGINAL.json"
+[ -f "$MOUSE" ] || MOUSE="$HERE/reference/mouse_control_ORIGINAL.json"
+if [ -f "$MOUSE" ]; then
+  MDST="/vendor/menu_config_xml/mouse_control.json"
+  "$ADB" -s "$SERIAL" shell "mount -o remount,rw /vendor" >/dev/null 2>&1
+  "$ADB" -s "$SERIAL" push "$MOUSE" /data/local/tmp/mc_restore.json >/dev/null
+  "$ADB" -s "$SERIAL" shell "cp /data/local/tmp/mc_restore.json $MDST && chmod 644 $MDST; restorecon $MDST" >/dev/null 2>&1
+fi
+
 echo "Done. Reboot:  \"$ADB\" -s $SERIAL reboot"
